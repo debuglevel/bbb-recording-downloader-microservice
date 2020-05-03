@@ -1,4 +1,4 @@
-package de.debuglevel.greeter
+package de.debuglevel.bbbrecordingdownloader
 
 import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.server.EmbeddedServer

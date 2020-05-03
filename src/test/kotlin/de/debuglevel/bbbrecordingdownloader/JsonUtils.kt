@@ -1,4 +1,4 @@
-package de.debuglevel.greeter
+package de.debuglevel.bbbrecordingdownloader
 
 import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.ObjectMapper

@@ -1,10 +1,5 @@
-package de.debuglevel.greeter.greeting
+package de.debuglevel.bbbrecordingdownloader.greeting
 
-import io.micronaut.http.HttpRequest
-import io.micronaut.http.client.HttpClient
-import io.micronaut.http.client.annotation.Client
-import io.micronaut.http.uri.UriBuilder
-import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.annotation.MicronautTest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.TestInstance
@@ -14,13 +9,10 @@ import javax.inject.Inject
 
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class GreetingControllerTests {
-    @Inject
-    lateinit var server: EmbeddedServer
+class GreetingClientTests {
 
     @Inject
-    @field:Client("/greetings")
-    lateinit var httpClient: HttpClient
+    lateinit var greetingClient: GreetingClient
 
     @ParameterizedTest
     @MethodSource("validNameAndLanguageProvider")
@@ -28,15 +20,10 @@ class GreetingControllerTests {
         // Arrange
 
         // Act
-        // UriBuilder.expand() handles nasty things like URL encoding of umlauts, spaces, ...
-        val uri = UriBuilder.of("/{name}")
-            .queryParam("language", testData.language)
-            .expand(mutableMapOf("name" to testData.name))
-            .toString()
-        val greeting = httpClient.toBlocking().retrieve(uri)
+        val greeting = greetingClient.getOne(testData.name, testData.language).blockingGet()
 
         // Assert
-        Assertions.assertThat(greeting).contains(testData.expected)
+        Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)
     }
 
     @ParameterizedTest
@@ -46,9 +33,7 @@ class GreetingControllerTests {
         val greetingRequest = GreetingRequest(testData.name, testData.language)
 
         // Act
-        val uri = UriBuilder.of("/").build()
-        val greeting = httpClient.toBlocking()
-            .retrieve(HttpRequest.POST(uri, greetingRequest), GreetingDTO::class.java)
+        val greeting = greetingClient.postOne(greetingRequest).blockingGet()
 
         // Assert
         Assertions.assertThat(greeting.greeting).isEqualTo(testData.expected)
@@ -63,13 +48,16 @@ class GreetingControllerTests {
 //        // Arrange
 //
 //        // Act
-//        val greeting = httpClient.toBlocking().retrieve("/${testData.name}?language=${testData.language}")
+//        val x = greetingClient.getOne(
+//            testData.name,
+//            testData.language
+//        ).blockingGet()
 //
 //        // Assert
-//        Assertions.assertThat(greeting).contains("500")
+//        Assertions.assertThatExceptionOfType(GreetingService.GreetingException::class.java).isThrownBy {
+//
+//        }
 //    }
 //
-//    fun invalidNameProvider(): Stream<TestDataProvider.NameTestData> {
-//        return TestDataProvider.invalidNameProvider()
-//    }
+//    fun invalidNameProvider() = TestDataProvider.invalidNameProvider()
 }

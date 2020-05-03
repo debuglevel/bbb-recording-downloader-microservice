@@ -1,4 +1,4 @@
-package de.debuglevel.greeter.greeting
+package de.debuglevel.bbbrecordingdownloader.greeting
 
 import io.micronaut.test.annotation.MicronautTest
 import org.assertj.core.api.Assertions.assertThat

@@ -1,4 +1,4 @@
-package de.debuglevel.greeter.greeting
+package de.debuglevel.bbbrecordingdownloader.greeting
 
 import java.util.stream.Stream
 

@@ -1,4 +1,4 @@
-package de.debuglevel.greeter
+package de.debuglevel.bbbrecordingdownloader
 
 import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.Micronaut
@@ -15,9 +15,9 @@ import mu.KotlinLogging
  */
 @OpenAPIDefinition(
     info = Info(
-        title = "Greeter Microservice",
+        title = "BigBlueButton Recording Downloader Microservice",
         version = "0.1",
-        description = "Microservice for greeting people",
+        description = "Microservice for downloading BigBlueButton Recordings",
         license = License(name = "Unlicense", url = "https://unlicense.org/"),
         contact = Contact(url = "http://debuglevel.de", name = "Marc Kohaupt")
     )

@@ -1,4 +1,4 @@
-package de.debuglevel.greeter.person
+package de.debuglevel.bbbrecordingdownloader.person
 
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.annotation.MicronautTest
